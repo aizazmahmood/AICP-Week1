@@ -59,7 +59,7 @@ int main() {
     chosenHDD = itemCode[hddIndex];
     totalPrice += price[hddIndex];
 
-    // Ask if the customer wants to purchase additional items
+    
     cout << "\nDo you want to purchase additional items from other categories? (y/n): ";
     char additionalItemsChoice;
     cin >> additionalItemsChoice;
@@ -67,7 +67,7 @@ int main() {
     vector<string> additionalItems;
     double additionalItemsPrice = 0.0;
 
-    // Process additional items
+   
     if (additionalItemsChoice == 'y' || additionalItemsChoice == 'Y') {
         int additionalItemsCount;
         cout << "Enter the number of additional items you want to purchase: ";
@@ -82,7 +82,18 @@ int main() {
         totalPrice += additionalItemsPrice;
     }
 
-    // Display the chosen items, additional items, and total price
+    
+    double discount = 0.0;
+    if (additionalItems.size() == 1) {
+        discount = 0.05; // 5% discount for one additional item
+    } else if (additionalItems.size() >= 2) {
+        discount = 0.10; // 10% discount for two or more additional items
+    }
+
+    double discountAmount = totalPrice * discount;
+    double discountedPrice = totalPrice - discountAmount;
+
+   
     cout << "\nChosen Items:" << endl;
     cout << "Case: " << chosenCase << endl;
     cout << "RAM: " << chosenRAM << endl;
@@ -97,6 +108,13 @@ int main() {
 
     cout << fixed << setprecision(2);
     cout << "\nTotal Price: $" << totalPrice << endl;
+
+   
+    if (discount > 0.0) {
+        cout << "\nDiscount Applied:" << endl;
+        cout << "Discount Amount: $" << discountAmount << endl;
+        cout << "Discounted Price: $" << discountedPrice << endl;
+    }
 
     return 0;
 }
